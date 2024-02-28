@@ -1,60 +1,104 @@
-import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Container, Flex, VStack } from "@chakra-ui/react";
 import { FaApple } from "react-icons/fa";
-import { IoIosSearch } from "react-icons/io";
-import { BsBag } from "react-icons/bs";
+import NavbarMenu from "./NavbarComponents/navbarMenuStore";
+import NavbarComponentSearch from "./NavbarComponents/navbarComponentSearch";
+import { navDatas, navs, search_cart } from "./navbarDatas";
+import NavbarComponentCart from "./NavbarComponents/navbarComponentCart";
 
 export default function Navbar() {
-  return (
-    <div>
-      <Box
-        w="100%"
-        h="40px"
-        bg="primaryColor"
-        display="flex"
-        alignItems="center"
-        justifyContent="center  "
-      >
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-around"
-          w="990px"
-          fontSize="13px"
-          fontWeight="400"
-          gap="35px"
-          cursor='pointer'
-        >
-          <Text fontSize="17px" fontWeight="600px" lineHeight="1.2353641176">
-            <FaApple />
-          </Text>
-          <Text>
-            Cửa hàng
+  const [height, setHeight] = useState(0);
+  const [index, setIndex] = useState(null);
+  const [indexIcon, setIndexIcon] = useState(null);
 
-          </Text>
-          <Text>Mac</Text>
-          <Text> iPad</Text>
-          <Text> iPhone</Text>
-          <Text> Watch</Text>
-          <Text> AirPods</Text>
-          <Text> TV & Nhà</Text>
-          <Text> Giải Trí</Text>
-          <Text> Phụ Kiện</Text>
-          <Text> Hỗ trợ</Text>
-          <Box
-            fontSize="17px"
-            lineHeight="1.2353641176"
-            fontWeight="600px"
-            display="flex"
+  const handleHeightChange = (height) => {
+    setHeight(height);
+  };
+
+  // console.log(in)
+  return (
+    <Box w="100%" h="43px" position="relative">
+      <VStack w="100%" h="100%">
+        <Container maxW="996px" h="100% ">
+          <Flex
             alignItems="center"
             justifyContent="space-around"
-            gap="35px"
+            gap="30px"
+            h="43px"
+            pos="relative"
+            zIndex="1"
           >
-            <IoIosSearch />
-            <BsBag />
+            <Box cursor="pointer" as="span" fontSize="17px">
+              <FaApple />
+            </Box>
+
+            {navs.map((nav, idx) => (
+              <Box
+                key={idx}
+                onMouseOver={() => setIndex(idx)}
+                cursor="pointer"
+                fontSize="12px"
+              >
+                {nav}
+              </Box>
+            ))}
+
+            <Flex cursor="pointer" gap="30px">
+              {search_cart.map((search, index) => (
+                <Box
+                  key={index}
+                  onClick={() => setIndexIcon(index)}
+                  onMouseEnter={() => {
+                    setIndex(null);
+                    setIndexIcon(null);
+                  }}
+                >
+                  {search}
+                </Box>
+              ))}
+            </Flex>
+          </Flex>
+        </Container>
+        <Box>
+          <Box
+            pos="absolute"
+            top="43px"
+            backgroundColor="#fff"
+            display="block"
+            w="100%"
+            right="0"
+            transition="opacity .4s ease-in-out, height .2s ease-in-out"
+            zIndex="2"
+            opacity={index !== null || indexIcon !== null ? 1 : 0}
+            height={index !== null || indexIcon !== null ? height : 0}
+            onWheel={() => {
+              setIndex(null);
+              setIndexIcon(null);
+            }}
+          >
+            {index !== null && (
+              <NavbarMenu
+                data={navDatas[index]}
+                sendHeight={handleHeightChange}
+              />
+            )}
+            {indexIcon === 0 && indexIcon !== null && <NavbarComponentSearch />}
+            {indexIcon === 1 && indexIcon !== null && <NavbarComponentCart />}
+            <Box
+              // display="block"
+              opacity={index !== null || indexIcon !== null ? "1" : "0"}
+              backdropFilter="blur(20px)"
+              pos="absolute"
+              onMouseEnter={() => {
+                setIndex(null);
+                setIndexIcon(null);
+              }}
+              boxSize="100%"
+              top={index !== null || indexIcon !== null ? `${height}px` : "0"}
+            ></Box>
           </Box>
         </Box>
-      </Box>
-    </div>
+      </VStack>
+    </Box>
   );
 }

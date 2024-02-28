@@ -1,16 +1,17 @@
 import "./App.css";
-import Navbar from "./components/Navbar/navbar";
-import Home from "./components/Home/home";
-import Main from "./components/Main/main";
-import Footer from "./components/Footer/footer";
-
+import { Routes, Route } from "react-router-dom";
+import { publicRoutes } from "./components/routes";
+import StorePage from "./pages/StorePage/StorePage";
 function App() {
   return (
     <div>
-        <Navbar />
-        {/* <Home />
-        <Main />
-        <Footer /> */}
+      
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Page = route.component
+            return <Route key={index} path={route.path} element={<Page/>} />
+          })}
+        </Routes>
     </div>
   )
 }

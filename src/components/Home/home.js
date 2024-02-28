@@ -1,7 +1,8 @@
 import React from 'react'
+import StoreHome from './StoreHome'
 
 export default function Home() {
   return (
-    <div>homH</div>
+    <StoreHome></StoreHome>
   )
 }
