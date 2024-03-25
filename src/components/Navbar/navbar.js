@@ -7,6 +7,7 @@ import { navDatas, navs, search_cart } from "./navbarDatas";
 import NavbarComponentCart from "./NavbarComponents/navbarComponentCart";
 
 export default function Navbar() {
+  console.log("hello xuan huong nha");
   const [height, setHeight] = useState(0);
   const [index, setIndex] = useState(null);
   const [indexIcon, setIndexIcon] = useState(null);

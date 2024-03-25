@@ -4,9 +4,8 @@ import { oderOptions } from "./footerDatas";
 import FooterRules from "./footerComponents/footerRules";
 import FooterLinks from "./footerComponents/footerLinks";
 
-
-
 export default function Footer() {
+  console.log("hello anh em");
   return (
     <Box w="100%" bgColor="primaryColor">
       <Box>
