@@ -1,8 +1,7 @@
-import React from 'react'
-import StoreHome from './StoreHome'
+import React from "react";
+import StoreHome from "./StoreHome";
 
 export default function Home() {
-  return (
-    <StoreHome></StoreHome>
-  )
+  console.log("this is home page");
+  return <StoreHome></StoreHome>;
 }
